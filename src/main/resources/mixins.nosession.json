@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "gq.malwarefight.nosession.mixin",
+  "refmap": "mixins.nosession.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "client": [
+    "client.YggdrasilSessionMixin"
+  ]
+}

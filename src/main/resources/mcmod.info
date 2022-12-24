@@ -1,0 +1,18 @@
+[
+    {
+        "modid": "nosession",
+        "name": "NoSession",
+        "description": "NoSession protects your Session ID from being stolen.",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "",
+        "updateUrl": "",
+        "authorList": [
+            "PandaNinjas"
+        ],
+        "credits": "",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": []
+    }
+]
