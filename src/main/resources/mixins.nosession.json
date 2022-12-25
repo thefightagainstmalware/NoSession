@@ -5,5 +5,6 @@
   "compatibilityLevel": "JAVA_8",
   "client": [
     "client.YggdrasilSessionMixin"
-  ]
+  ],
+  "minVersion": "0.7.10"
 }
