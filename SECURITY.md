@@ -10,17 +10,13 @@ Currently all versions are supported.
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
-
-A vulnerability is currently defined as being able to get the session ID with only a mod that gets loaded after NoSession loads its tweaker.
-A non-comprehensive list of out of scope vulnerabilities:
-- Stealing information from launcher files
-- Using the OS level args methods 
+A vulnerability is currently defined as being able to get the session ID with only a mod that gets loaded after NoSession loads its tweaker.<br>
+Vulnerabilities that are out of scope are defined as those that NoSession itself cannot prevent.
 
 However, if you can produce a patch for an out of scope vulnerability, a bug bounty will be awarded as well.
 
 The bug bounty is a $5 USD Amazon Gift Card. I might run out, so it's awarded on a first come, first serve basis.
+
+Report the bug bounty by emailing admin@malwarefight.gq or by sending a DM to PandaNinjas#3017 on Discord.<br>
+If you would like, you can encrypt the message with my [public GPG key](https://raw.githubusercontent.com/pandaninjas/pandaninjas/main/pandaninjas-publickey.key)<br>
+Your bug bounty may be invalidated if you disclose it to the public before.
