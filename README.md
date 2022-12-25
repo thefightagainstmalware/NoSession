@@ -10,7 +10,7 @@ This only protects you from other mods. There are fake verification sites that c
 OAuth to anything except maybe your Minecraft launcher. You may also want to verify the signature on any NoSession binary. It's signed with [pandaninjas' GPG key](https://raw.githubusercontent.com/pandaninjas/pandaninjas/main/pandaninjas-publickey.key).
 
 ## Bug bounty
-See [SECURITY.MD](security.md)
+See [SECURITY.md](SECURITY.md)
 
 ## Features
 - Does not break existing token login methods
