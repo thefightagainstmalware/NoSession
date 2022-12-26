@@ -1,5 +1,6 @@
 # NoSession
 [![modrinth badge](https://modrinth-utils.vercel.app/api/badge/versions?id=Wyj4Bgod&logo=true)](https://modrinth.com/mod/nosession/)<br>
+[![curseforge badge](https://img.shields.io/badge/curseforge-1.8.9-F16436?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/nosession)<br>
 ![downloads](https://download-counter.thefightagainstmalware.workers.dev/thefightagainstmalware/NoSession?filter=jar)<br>
 NoSession is a mod that protects your session ID. 
 ## Does this make me perfectly safe?
