@@ -1,5 +1,6 @@
 # NoSession
 [![modrinth badge](https://modrinth-utils.vercel.app/api/badge/versions?id=Wyj4Bgod&logo=true)](https://modrinth.com/mod/nosession/)<br>
+![downloads](https://download-counter.thefightagainstmalware.workers.dev/thefightagainstmalware/NoSession?filter=jar)<br>
 NoSession is a mod that protects your session ID. 
 ## Does this make me perfectly safe?
 This mod doesn't make you 100% safe, but it makes it much harder to steal your session token. If you want to stay perfectly safe, look at the
