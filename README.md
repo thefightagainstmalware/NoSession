@@ -9,6 +9,7 @@ This mod doesn't make you 100% safe, but it makes it much harder to steal your s
 
 ## Staying Safe
 In order to work around an unpatchable security vulnerability, rename the NoSession jar to !.jar so it can load its protection before any other mods.<br>
+You should also use [MultiMC](https://github.com/MultiMC/Launcher/) or one of its derivates [PolyMC](https://github.com/PolyMC/PolyMC) or [PrismLauncher](https://github.com/PrismLauncher/PrismLauncher), because they use launch Minecraft in a way that improves security.<br>
 This only protects you from other mods. There are fake verification sites that can steal your session ID through that method.<br>
 Don't login with Microsoft OAuth to anything except maybe your Minecraft launcher. You may also want to verify the signature on any NoSession binary. It's signed with [pandaninjas' GPG key](https://raw.githubusercontent.com/pandaninjas/pandaninjas/main/pandaninjas-publickey.key).
 
