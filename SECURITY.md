@@ -7,7 +7,7 @@ Currently all versions are supported.
 | Version | Supported          |
 | ------- | ------------------ |
 | 1.0.0   | ✔️                  |
-| Any nightly branch | ❌ |
+
 ## Reporting a Vulnerability
 
 A vulnerability is currently defined as being able to get the session ID with only a mod that gets loaded after NoSession loads its tweaker.<br>
