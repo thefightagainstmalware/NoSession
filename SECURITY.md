@@ -7,6 +7,7 @@ Currently all versions are supported.
 | Version | Supported          |
 | ------- | ------------------ |
 | 1.0.0   | ✔️                  |
+| Any nightly branch | ❌ |
 
 ## Reporting a Vulnerability
 
