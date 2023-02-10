@@ -13,7 +13,6 @@ buildscript {
 
 plugins {
     id "java"
-    id "com.github.johnrengelman.shadow" version "2.0.4"
 }
 
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -45,7 +44,7 @@ repositories {
 }
 
 dependencies {
-    shade('org.spongepowered:mixin:0.7.10-SNAPSHOT') {
+    shade('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
         exclude module: 'gson'
@@ -73,19 +72,16 @@ processResources {
     rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
-shadowJar {
-    dependencies {}
-    configurations = [project.configurations.shade]
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE //prevent duplicates
-    classifier "" //prevent creation of unshadowed jar
-}
-
-reobf {
-    //reobfuscate the shadowed jar
-    shadowJar {}
-}
 
 jar {
+    dependsOn configurations.compile
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'dummyThing'
+
     manifest {
         attributes "ForceLoadAsMod": true,
                 "TweakOrder": 0,
