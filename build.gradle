@@ -13,13 +13,12 @@ buildscript {
 
 plugins {
     id "java"
-    id "com.github.johnrengelman.shadow" version "2.0.4"
 }
 
-apply plugin: 'net.minecraftforge.gradle.tweaker-client'
+apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 
-version = "1.0.0"
+project.version = "1.1.0-dev"
 group = "gq.malwarefight.nosession"
 archivesBaseName = "nosession"
 
@@ -27,11 +26,10 @@ compileJava.sourceCompatibility = compileJava.targetCompatibility = 1.8
 compileJava.options.encoding = "UTF-8"
 
 minecraft {
-    version = "1.8.9"
+    version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
     mappings = "stable_22" //mappings for 1.8.9
     makeObfSourceJar = false //disable creation of sources jar
-    tweakClass = 'gq.malwarefight.nosession.mixin.InitialTweaker'
 }
 
 configurations {
@@ -46,13 +44,15 @@ repositories {
 }
 
 dependencies {
-    shade('org.spongepowered:mixin:0.7.10-SNAPSHOT') {
+    shade('org.spongepowered:mixin:0.7.11-SNAPSHOT') {
         exclude module: 'launchwrapper'
         exclude module: 'guava'
         exclude module: 'gson'
         exclude module: 'commons-io'
         exclude module: 'log4j-core'
     }
+
+    compileOnly "net.minecraftforge:forge:1.8.9-11.15.1.2318-1.8.9:universal"
 }
 
 processResources {
@@ -72,26 +72,23 @@ processResources {
     rename '(.+_at.cfg)', 'META-INF/$1'
 }
 
-shadowJar {
-    dependencies {}
-    configurations = [project.configurations.shade]
-    duplicatesStrategy DuplicatesStrategy.EXCLUDE //prevent duplicates
-    classifier "" //prevent creation of unshadowed jar
-}
-
-reobf {
-    //reobfuscate the shadowed jar
-    shadowJar {}
-}
 
 jar {
+    dependsOn configurations.compile
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA', 'dummyThing'
+
     manifest {
         attributes "ForceLoadAsMod": true,
                 "TweakOrder": 0,
                 "ModSide": "CLIENT",
                 'FMLCorePluginContainsFMLMod': true,
-                'TweakClass': 'gq.malwarefight.nosession.mixin.InitialTweaker',
-                'MixinConfigs': 'mixins.nosession.json'
+                'MixinConfigs': 'mixins.nosession.json',
+                "FMLCorePlugin": "gq.malwarefight.nosession.NoSessionLoadingPlugin"
     }
 }
 
