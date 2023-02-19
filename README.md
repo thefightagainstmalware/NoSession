@@ -24,4 +24,4 @@ See [SECURITY.md](SECURITY.md)
 - Does not break existing token login methods
 
 ## Contributing
-All pushes to the main branch *must* be signed with a GPG key. See https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key and https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account for how
+All pushes to the main branch *must* be signed with a cryptographic key. See https://docs.github.com/en/authentication/managing-commit-signature-verification/generating-a-new-gpg-key and https://docs.github.com/en/authentication/managing-commit-signature-verification/adding-a-gpg-key-to-your-github-account for how
