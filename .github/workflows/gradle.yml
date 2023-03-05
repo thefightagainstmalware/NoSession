@@ -30,7 +30,7 @@ jobs:
         distribution: 'corretto'
     - name: Add the release signing secret key
       if: github.ref_name == 'main'
-      run:  echo $GPG_SIGNING_KEY
+      run:  echo $GPG_SIGNING_KEY | gpg --import
       env:
         GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
     - name: Build with Gradle
