@@ -1,7 +1,7 @@
 # NoSession
 [![modrinth badge](https://img.shields.io/modrinth/dt/Wyj4Bgod?label=modrinth%20downloads)![modrinth badge](https://img.shields.io/modrinth/game-versions/Wyj4Bgod?color=green&label=modrinth)](https://modrinth.com/mod/nosession/)<br>
 [![curseforge badge](https://img.shields.io/badge/curseforge-1.8.9-F16436?logo=curseforge)](https://www.curseforge.com/minecraft/mc-mods/nosession)<br>
-![downloads](https://download-counter.thefightagainstmalware.workers.dev/thefightagainstmalware/NoSession?filter=jar)<br>
+![downloads](https://download-counter.thefightagainstmalware.workers.dev/thefightagainstmalware/NoSession?filter=jar&text=github%20downloads)<br>
 NoSession is a mod that protects your session ID. 
 ## Does this make me perfectly safe?
 This mod doesn't make you 100% safe, but it makes it much harder to steal your session token. If you want to stay perfectly safe, look at the
