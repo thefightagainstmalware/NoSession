@@ -7,7 +7,8 @@ Generally, the latest release will be supported. Nightly branches are never supp
 | Version            | Supported |
 |--------------------|-----------|
 | 1.0.0              | ❌         |
-| 1.1.0              | ✔️         |
+| 1.1.0              | ❌         |
+| 1.1.1              | ✔️         |
 | Any nightly branch | ❌         |
 ## Reporting a Vulnerability
 

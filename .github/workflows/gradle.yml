@@ -28,13 +28,25 @@ jobs:
       with:
         java-version: '8'
         distribution: 'corretto'
+    - name: Add the release signing secret key
+      if: github.ref_name == 'main'
+      run: echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
+      env:
+        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
     - name: Build with Gradle
-      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      uses: gradle/gradle-build-action@6778644d759ada84c71d6abc2f6fd7e328c600ab
       with:
         arguments: build
+    
+    - name: Sign the binary
+      if: github.ref_name == 'main'
+      run: gpg --detach-sign -a ./build/libs/*.jar
+      env:
+        GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
         # Artifact name
-        path: ./build/libs/*.jar
+        path: ./build/libs/
     
