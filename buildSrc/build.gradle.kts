@@ -21,3 +21,7 @@ dependencies {
     implementation("com.github.thefightagainstmalware:MixinGradle:92e66fe")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
 }
+
+dependencyLocking {
+    lockAllConfigurations()
+}

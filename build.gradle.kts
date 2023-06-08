@@ -46,6 +46,10 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
 }
 
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 tasks.processResources {
     inputs.property("version", project.version)
     inputs.property("mcversion", project.minecraft.version)
