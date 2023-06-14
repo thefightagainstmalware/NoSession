@@ -17,7 +17,7 @@ Vulnerabilities that are out of scope are defined as those that NoSession itself
 
 However, if you can produce a patch for an out-of-scope vulnerability, a bug bounty will be awarded as well.
 
-The bug bounty is a $5 USD Amazon Gift Card. I might run out, so it's awarded on a first come, first serve basis.
+The bug bounty is a $5 USD Amazon Gift Card. I might run out, so it's awarded on a first come, first served basis.
 
 Report the bug bounty by sending a DM to PandaNinjas#3017 on Discord.<br>
 If you would like, you can encrypt the message with my [public GPG key](https://raw.githubusercontent.com/pandaninjas/pandaninjas/main/pandaninjas-publickey.key)<br>
