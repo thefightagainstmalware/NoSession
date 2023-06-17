@@ -12,7 +12,7 @@ In order to work around an unpatchable security vulnerability, rename the NoSess
 This only protects you from other mods. There are fake verification sites that can steal your session ID through that method.<br>
 Don't log in with Microsoft OAuth to anything except maybe your Minecraft launcher. You may also want to verify the signature on any NoSession binary. It's signed with [pandaninjas' GPG key](https://raw.githubusercontent.com/pandaninjas/pandaninjas/main/pandaninjas-publickey.key) if the release is v1.1.0 or earlier, and signed with [this key](https://raw.githubusercontent.com/thefightagainstmalware/NoSession/main/releasesigner.asc) if the release is later than v1.1.0
 
-See [ILikePlayingGames' SkyblockModSafety guide](https://github.com/ILikePlayingGames/SkyblockModSafety) for other information
+See [Angry_Pinapple's Hypixel forum post](https://hypixel.net/threads/all-about-skyblock-account-stealing-part-ii.5231557/) for more information
 
 ## Support
 Support is provided in [The Fight Against Malware's discord server](https://discord.gg/TWhrmZFXqb)
