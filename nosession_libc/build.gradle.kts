@@ -5,10 +5,12 @@ plugins {
     `java-base`
 
 }
-val lib by configurations.creating
+val lib: Configuration by configurations.creating
 
 library {
     linkage.set(listOf(Linkage.SHARED))
+    targetMachines.set(listOf(machines.linux.x86))
+
 }
 
 project.afterEvaluate {
