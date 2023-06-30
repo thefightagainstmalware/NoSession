@@ -9,7 +9,7 @@ val lib: Configuration by configurations.creating
 
 library {
     linkage.set(listOf(Linkage.SHARED))
-    targetMachines.set(listOf(machines.linux.x86))
+    targetMachines.set(listOf(machines.linux.x86_64))
 
 }
 
