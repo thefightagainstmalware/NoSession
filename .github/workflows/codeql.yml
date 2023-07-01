@@ -60,7 +60,7 @@ jobs:
         java-version: '8'
       
      
-    - run: ./gradlew -M sha256 build
+    - run: ./gradlew build
     
     - name: Dump verification metadata
       run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
