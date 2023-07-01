@@ -36,8 +36,11 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@6778644d759ada84c71d6abc2f6fd7e328c600ab
       with:
-        arguments: build
-    
+        arguments: -M sha256 build
+        
+    - name: Dump verification metadata
+      run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
+      
     - name: Sign the binary
       if: github.ref_name == 'main'
       run: gpg --detach-sign -a ./build/libs/*.jar
