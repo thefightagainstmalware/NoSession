@@ -60,7 +60,10 @@ jobs:
         java-version: '8'
       
      
-    - run: ./gradlew build
+    - run: ./gradlew -M sha256 build
+    
+    - name: Dump verification metadata
+      run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
