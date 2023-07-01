@@ -33,6 +33,10 @@ jobs:
       run: echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
       env:
         GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
+    
+    - name: Enable verbose logging of dependencies
+      run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
+      
     - name: Build with Gradle
       uses: gradle/gradle-build-action@6778644d759ada84c71d6abc2f6fd7e328c600ab
       with:
