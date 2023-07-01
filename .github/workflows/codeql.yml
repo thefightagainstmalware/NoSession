@@ -58,9 +58,12 @@ jobs:
       with:
         distribution: 'corretto' # See 'Supported distributions' for available options
         java-version: '8'
-      
-     
-    - run: ./gradlew build
+    
+    - name: Enable verbose logging of dependencies
+      run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
+    
+    - name: Build with Gradle
+      run: ./gradlew build
     
     - name: Dump verification metadata
       run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
