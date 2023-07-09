@@ -65,11 +65,7 @@ jobs:
       run: sudo apt update && sudo apt install datefudge
     - name: Build with Gradle
       run: datefudge -s '00:00:00 1 July 2023' ./gradlew build
-
-
-    - name: Dump verification metadata
-      run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
-
+      
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
