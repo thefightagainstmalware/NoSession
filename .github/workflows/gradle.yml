@@ -42,9 +42,20 @@ jobs:
       with:
         arguments: build
         
+    - name: Dump failures in verification
+      run: cat /home/runner/work/NoSession/NoSession/build/reports/dependency-verification/*/dependency-verification-report.html
+      if: always()
+      
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        # Artifact name
+        path: /home/runner/.gradle/caches/minecraft/net/minecraftforge/forge/1.8.9-11.15.1.2318-1.8.9/stable/22/forgeBin-1.8.9-11.15.1.2318-1.8.9.jar
+      if: always()
+      
     - name: Dump verification metadata
       run: cd $GITHUB_WORKSPACE && cat gradle/verification-metadata.xml
-      
+    
     - name: Sign the binary
       if: github.ref_name == 'main'
       run: gpg --detach-sign -a ./build/libs/*.jar
