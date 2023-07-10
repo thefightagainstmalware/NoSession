@@ -32,10 +32,6 @@ jobs:
       run: echo -n "$GPG_SIGNING_KEY" | base64 --decode | gpg --import
       env:
         GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-    
-    - name: Install datefudge
-      run: sudo apt update && sudo apt install datefudge
-      
     - name: Setup gradle build
       uses: gradle/gradle-build-action@6778644d759ada84c71d6abc2f6fd7e328c600ab
       
@@ -43,7 +39,7 @@ jobs:
       run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
       
     - name: Build with Gradle
-      run: datefudge -s '00:00:00 1 July 2023' ./gradlew build
+      run: ./gradlew build
     
     - name: Sign the binary
       if: github.ref_name == 'main'
