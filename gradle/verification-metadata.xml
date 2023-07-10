@@ -472,6 +472,7 @@
                <also-trust value="8ba7a4fa96581af9896435eb83cf0fa8d26612ef139abc71d452fb66ce2af13b"/>
                <also-trust value="b5837f285aad8d66e8f8eacb14e9271ad3689e8ceb87b0c9e47f4deb7be53623"/>
                <also-trust value="c885d818743165cdd9f9a0c031933a090b99a010ec79892af7c00665f00be061"/>
+               <also-trust value="2bffda927404464f40bb36e6f48560091fb66ef92071a7769cdd530dbdaa6772"/>
             </sha256>
          </artifact>
       </component>
