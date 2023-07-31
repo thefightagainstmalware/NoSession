@@ -17,7 +17,7 @@ repositories {
 val kotlinVersion = "1.8.21"
 
 dependencies {
-    implementation("com.github.thefightagainstmalware:ForgeGradle:a2c5796")
+    implementation("com.github.thefightagainstmalware:ForgeGradle:71f5002")
     implementation("com.github.thefightagainstmalware:MixinGradle:92e66fe")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 }
