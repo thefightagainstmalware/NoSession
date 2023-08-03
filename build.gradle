@@ -18,7 +18,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'org.spongepowered.mixin'
 
-project.version = "1.1.1"
+project.version = "1.1.2"
 group = "gq.malwarefight.nosession"
 archivesBaseName = "nosession"
 
