@@ -58,10 +58,12 @@ jobs:
       with:
         distribution: 'corretto' # See 'Supported distributions' for available options
         java-version: '8'
+    
+    - name: Enable verbose logging of dependencies
+      run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
+    - name: Build with Gradle
+      run: ./gradlew build --no-daemon
       
-     
-    - run: ./gradlew build
-
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
