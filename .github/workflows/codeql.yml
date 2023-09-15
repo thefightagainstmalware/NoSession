@@ -61,10 +61,8 @@ jobs:
     
     - name: Enable verbose logging of dependencies
       run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
-    - name: Install datefudge
-      run: sudo apt update && sudo apt install datefudge
     - name: Build with Gradle
-      run: datefudge -s '00:00:00 1 July 2023' ./gradlew build
+      run: ./gradlew build --no-daemon
       
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
