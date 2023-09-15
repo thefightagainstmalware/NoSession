@@ -3,6 +3,10 @@
    <configuration>
       <verify-metadata>false</verify-metadata>
       <verify-signatures>false</verify-signatures>
+      <trusted-artifacts>
+         <!-- forgeBin is generated on the same machine and contains timestamps from the machine that are difficult to remove -->
+         <trust file="forgeBin-1.8.9-11.15.1.2318-1.8.9.jar" regex="false"/>
+      </trusted-artifacts>
    </configuration>
    <components>
       <component group="com.cloudbees" name="cloudbees-oss-parent" version="1">
