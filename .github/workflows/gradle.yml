@@ -39,7 +39,7 @@ jobs:
       run: echo "org.gradle.dependency.verification.console=verbose" >> $GITHUB_WORKSPACE/gradle.properties
       
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --no-daemon
     
     - name: Sign the binary
       if: github.ref_name == 'main'
