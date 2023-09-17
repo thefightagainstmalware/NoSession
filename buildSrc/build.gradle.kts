@@ -5,7 +5,6 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven("https://maven.minecraftforge.net")
     maven("https://jitpack.io") {
         mavenContent {
             includeGroupByRegex("(com|io)\\.github\\..+")
