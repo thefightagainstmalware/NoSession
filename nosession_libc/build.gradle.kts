@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
+import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
     `cpp-library`
@@ -8,13 +9,15 @@ plugins {
 val lib: Configuration by configurations.creating
 
 library {
-    linkage.set(listOf(Linkage.SHARED))
-    targetMachines.set(listOf(machines.linux.x86_64))
-
+    if (Os.isFamily(Os.FAMILY_UNIX) && !Os.isFamily(Os.FAMILY_MAC)) {
+        linkage.set(listOf(Linkage.SHARED))
+        targetMachines.set(listOf(machines.linux.x86_64))
+    }
 }
 
 project.afterEvaluate {
     tasks.withType(CppCompile::class) {
+        enabled = Os.isFamily(Os.FAMILY_UNIX) && !Os.isFamily(Os.FAMILY_MAC)
         val javaHome = rootProject.the<JavaToolchainService>()
             .compilerFor(rootProject.the<JavaPluginExtension>().toolchain)
             .map { it.metadata.installationPath.asFile }

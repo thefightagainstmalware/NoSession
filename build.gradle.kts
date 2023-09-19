@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     java
     id("net.minecraftforge.gradle.forge")
@@ -40,7 +42,9 @@ dependencies {
         exclude(module = "commons-io")
         exclude(module = "log4j-core")
     }
-    shade(project(":nosession_libc", "lib"))
+    if (Os.isFamily(Os.FAMILY_UNIX) && !Os.isFamily(Os.FAMILY_MAC)) {
+        shade(project(":nosession_libc", "lib"))
+    }
     compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
