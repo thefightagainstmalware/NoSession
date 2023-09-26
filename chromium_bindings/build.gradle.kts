@@ -37,6 +37,7 @@ project.afterEvaluate {
         compilerArgs.add("-I")
         compilerArgs.add(project.projectDir.resolve("chromium/third_party/googletest/src/googletest/include").absolutePath)
         compilerArgs.add("-std=c++20")
+        compilerArgs.add("-fsanitize=address,undefined") // i do not trust my c++ skills
     }
 
     val linkRelease: AbstractLinkTask by tasks

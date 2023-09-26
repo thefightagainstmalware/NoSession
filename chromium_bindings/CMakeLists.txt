@@ -9,6 +9,6 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS})
 include_directories(chromium/third_party/abseil-cpp/)
 include_directories(chromium/third_party/googletest/src/googletest/include)
-add_library(chromium_bindings
+add_library(chromium_bindings SHARED
         src/main/cpp/gq_malwarefight_nosession_win_WindowsSandbox.cpp
         src/main/cpp/gq_malwarefight_nosession_win_WindowsSandbox.h)
