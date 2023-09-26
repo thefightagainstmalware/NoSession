@@ -28,6 +28,7 @@ jobs:
       run: clang --version
     - name: where is clang
       run: where clang
+      if: ${{ matrix.os }} == 'windows-latest'
     - name: Set up JDK 
       uses: actions/setup-java@v3
       with:
