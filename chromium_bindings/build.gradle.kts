@@ -2,7 +2,6 @@
 
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.jetbrains.kotlin.gradle.plugin.mpp.pm20.util.archivesName
-import java.util.*
 
 plugins {
     `cpp-library`
@@ -31,11 +30,11 @@ project.afterEvaluate {
         compilerArgs.add("-I")
         compilerArgs.add(includeDir.get().resolve("win32").absolutePath)
         compilerArgs.add("-I")
-        compilerArgs.add(project.projectDir.resolve("chromium").absolutePath)
+        compilerArgs.add(project.projectDir.resolve("chromium/").absolutePath)
         compilerArgs.add("-I")
         compilerArgs.add(project.projectDir.resolve("chromium/third_party/abseil-cpp/").absolutePath)
         compilerArgs.add("-I")
-        compilerArgs.add(project.projectDir.resolve("chromium/third_party/googletest/src/googletest/include").absolutePath)
+        compilerArgs.add(project.projectDir.resolve("chromium/third_party/googletest/src/googletest/include/").absolutePath)
         compilerArgs.add("-std=c++20")
         compilerArgs.add("-fsanitize=address,undefined") // i do not trust my c++ skills
     }
