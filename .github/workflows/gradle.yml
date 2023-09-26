@@ -25,10 +25,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Check clang version
-      run: Get-Command clang
-    - name: where is clang
-      run: where clang
     - name: Set up JDK 
       uses: actions/setup-java@v3
       with:
