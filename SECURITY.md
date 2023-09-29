@@ -6,13 +6,14 @@ Generally, the latest release will be supported. Nightly branches are never supp
 
 | Version            | Supported |
 |--------------------|-----------|
-| 1.0.0              | ❌         |
-| 1.1.0              | ❌         |
-| 1.1.1              | ✔️         |
-| Any nightly branch | ❌         |
+| 1.0.0              | ❌                         |
+| 1.1.0              | ❌                         |
+| 1.1.1              | ✔️ if machine is not Linux |
+| 1.2.0              | ✔️ in all circumstances    |
+| Any nightly branch | ❌                         |
 ## Reporting a Vulnerability
 
-A vulnerability is currently defined as being able to get the session ID with only a mod that gets loaded after NoSession loads its tweaker.<br>
+A vulnerability is currently defined as being able to get the session ID with only a mod that gets loaded after NoSession loads its loading plugin.<br>
 Vulnerabilities that are out of scope are defined as those that NoSession itself cannot prevent.
 
 However, if you can produce a patch for an out-of-scope vulnerability, a bug bounty will be awarded as well.
