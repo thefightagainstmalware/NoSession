@@ -21,7 +21,7 @@ WELL_KNOWN_SID_TYPE app_capabilities[] = {
          * do much because it is sandboxed
          */
         WinCapabilityPrivateNetworkClientServerSid, // this is needed when the user is connected to a VPN which
-                                                        // routes traffic through a local ip address.
+                                                    // routes traffic through a local ip address.
         // TODO: investigate removing this capability conditionally
 
 };
