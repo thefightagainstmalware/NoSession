@@ -8,4 +8,7 @@ find_package(JNI REQUIRED)
 include_directories(${JNI_INCLUDE_DIRS})
 add_library(chromium_bindings SHARED
         src/main/cpp/gq_malwarefight_nosession_win_WindowsSandbox.cpp
-        src/main/cpp/gq_malwarefight_nosession_win_WindowsSandbox.h)
+        src/main/cpp/gq_malwarefight_nosession_win_WindowsSandbox.h
+        src/main/cpp/ContainerCreate.cpp
+        src/main/cpp/ContainerCreate.h
+        )

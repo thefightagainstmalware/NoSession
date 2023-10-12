@@ -9,7 +9,7 @@
 #include <algorithm>
 
 #pragma comment(lib, "userenv.lib")
-
+#pragma comment(lib, "Advapi32.lib")
 
 WELL_KNOWN_SID_TYPE app_capabilities[] = {
         WinCapabilityInternetClientSid,
@@ -52,20 +52,21 @@ WCHAR* createContainerName(WCHAR *base_container_name, LPWSTR *rwMounts, LPWSTR 
     uint64_t hash = 0xcbf29ce484222325;
     for (int i = 0; i < rwMountsCount; ++i) {
         size_t strlen = wcslen(rwMounts[i]);
-        for (int j = 0; j < strlen; j++) {
+        for (size_t j = 0; j < strlen; j++) {
             hash *= 0x100000001b3;
             hash ^= rwMounts[i][j];
         }
     }
     for (int i = 0; i < roMountsCount; ++i) {
         size_t strlen = wcslen(roMounts[i]);
-        for (int j = 0; j < strlen; j++) {
+        for (size_t j = 0; j < strlen; j++) {
             hash *= 0x100000001b3;
             hash ^= roMounts[i][j];
         }
     }
     auto result = (WCHAR*) malloc(sizeof(WCHAR) * (base_container_name_length + 16 + 1));
-    ZeroMemory(&result[0], base_container_name_length + 16 + 1);
+    static_assert(sizeof(size_t) >= sizeof(int8_t)); // should be true on most systems but doesn't hurt to be safe
+    ZeroMemory(&result[0], (size_t) base_container_name_length + 16 + 1);
     std::copy(&base_container_name[0], &base_container_name[base_container_name_length], &result[0]);
 
     _snwprintf_s(&result[base_container_name_length], 17, 17, L"%jx", hash);
