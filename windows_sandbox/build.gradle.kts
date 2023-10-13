@@ -44,6 +44,7 @@ project.afterEvaluate {
             compilerArgs.add("/wd4710") // 4710: function not inlined
             compilerArgs.add("/wd4711") // 4711: function is inlined. there is no winning with msvc
             compilerArgs.add("/wd5045") // 5045: spectre mitigation is enabled
+            compilerArgs.add("/wd4068")
             compilerArgs.add("/std:c++17")
             compilerArgs.add("/EHa")
         }

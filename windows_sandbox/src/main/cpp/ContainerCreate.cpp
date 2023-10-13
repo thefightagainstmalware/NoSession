@@ -1,12 +1,23 @@
+#include <cstdarg>
+#include <cstdio>
 #include <windows.h>
 #include <strsafe.h>
 #include <userenv.h>
 #include <accctrl.h>
 #include <aclapi.h>
-#include <cstdint>
 #include <cassert>
 #include "ContainerCreate.h"
 #include <algorithm>
+
+void debug(...) {
+#ifdef DEBUG
+    va_list args;
+    char* format_string;
+    va_start(args, format_string);
+    printf(format_string, args);
+    va_end(args);
+#endif
+}
 
 #pragma comment(lib, "userenv.lib")
 #pragma comment(lib, "Advapi32.lib")
@@ -27,14 +38,14 @@ WELL_KNOWN_SID_TYPE app_capabilities[] = {
 };
 WCHAR container_desc[] = L"Sandboxing Minecraft";
 
-
 BOOL SetSecurityCapabilities(PSID container_sid, SECURITY_CAPABILITIES *capabilities, PDWORD num_capabilities);
 
 BOOL GrantNamedObjectAccess(PSID appcontainer_sid, LPWSTR object_name, SE_OBJECT_TYPE object_type, DWORD access_mask);
 
 /**
- * Uses FNV-1 hash in order to generate a unique container name
- * use of FNV-1, a non-cryptographic hash is because the mounts which go into the hash are not user supplied, they
+ * Uses FNV-1 hash in order to generate a unique container name.
+ *
+ * use of FNV-1, a non-cryptographic hash, is because the mounts which go into the hash are not user supplied; they
  * are supplied by the implementor of the sandbox. FNV-1 was chosen because of its low collision rate, which makes it more
  * likely that an existing container name has the same rwMounts and roMounts reducing the attack surface if the container
  * names collide
@@ -100,17 +111,17 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
             if (HRESULT_CODE(result) == ERROR_ALREADY_EXISTS) {
                 result = DeriveAppContainerSidFromAppContainerName(container_name, &sid);
                 if (!SUCCEEDED(result)) {
-                    printf("Failed to get existing AppContainer name, error code: %ld", HRESULT_CODE(result));
+                    debug("Failed to get existing AppContainer name, error code: %ld", HRESULT_CODE(result));
                     break;
                 }
             } else {
-                printf("Failed to create AppContainer, last error: %ld\n", HRESULT_CODE(result));
+                debug("Failed to create AppContainer, last error: %ld\n", HRESULT_CODE(result));
                 break;
             }
         }
 
         if (!SetSecurityCapabilities(sid, &SecurityCapabilities, &num_capabilities)) {
-            printf("Failed to set security capabilities, last error: %ld\n", GetLastError());
+            debug("Failed to set security capabilities, last error: %ld\n", GetLastError());
             break;
         }
 
@@ -126,13 +137,13 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
         startup_info.lpAttributeList = (LPPROC_THREAD_ATTRIBUTE_LIST) malloc(attribute_size);
 
         if (!InitializeProcThreadAttributeList(startup_info.lpAttributeList, 1, 0, &attribute_size)) {
-            printf("InitializeProcThreadAttributeList() failed, last error: %ld", GetLastError());
+            debug("InitializeProcThreadAttributeList() failed, last error: %ld", GetLastError());
             break;
         }
 
         if (!UpdateProcThreadAttribute(startup_info.lpAttributeList, 0, PROC_THREAD_ATTRIBUTE_SECURITY_CAPABILITIES,
                                        &SecurityCapabilities, sizeof(SecurityCapabilities), nullptr, nullptr)) {
-            printf("UpdateProcThreadAttribute() failed, last error: %ld", GetLastError());
+            debug("UpdateProcThreadAttribute() failed, last error: %ld", GetLastError());
             break;
         }
 
@@ -140,7 +151,7 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
         if (!CreateProcessW(nullptr, command_line, nullptr, nullptr, FALSE,
                             EXTENDED_STARTUPINFO_PRESENT, nullptr, nullptr,
                             (LPSTARTUPINFOW) &startup_info, &process_info)) {
-            printf("Failed to create process %ls, last error: %ld\n", command_line, GetLastError());
+            debug("Failed to create process %ls, last error: %ld\n", command_line, GetLastError());
             break;
         }
         success = true;
@@ -241,20 +252,20 @@ BOOL GrantNamedObjectAccess(PSID appcontainer_sid, LPWSTR object_name, SE_OBJECT
                                        &original_acl,
                                        nullptr, nullptr);
         if (status != ERROR_SUCCESS) {
-            printf("GetNamedSecurityInfoW() failed for %ls, error: %ld\n", object_name, status);
+            debug("GetNamedSecurityInfoW() failed for %ls, error: %ld\n", object_name, status);
             break;
         }
 
         status = SetEntriesInAclW(1, &explicit_access, original_acl, &new_acl);
         if (status != ERROR_SUCCESS) {
-            printf("SetEntriesInAclW() failed for %ls, error: %ld\n", object_name, status);
+            debug("SetEntriesInAclW() failed for %ls, error: %ld\n", object_name, status);
             break;
         }
 
         status = SetNamedSecurityInfoW(object_name, object_type, DACL_SECURITY_INFORMATION, nullptr, nullptr,
                                            new_acl, nullptr);
         if (status != ERROR_SUCCESS) {
-            printf("SetNamedSecurityInfoW() failed for %ls, error: %ld\n", object_name, status);
+            debug("SetNamedSecurityInfoW() failed for %ls, error: %ld\n", object_name, status);
             break;
         }
 
