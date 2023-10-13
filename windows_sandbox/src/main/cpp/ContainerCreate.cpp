@@ -9,6 +9,9 @@
 #include "ContainerCreate.h"
 #include <algorithm>
 
+#ifndef DEBUG
+inline
+#endif
 void debug(...) {
 #ifdef DEBUG
     va_list args;
@@ -25,7 +28,7 @@ void debug(...) {
 WELL_KNOWN_SID_TYPE app_capabilities[] = {
         WinCapabilityInternetClientSid,
         WinCapabilityInternetClientServerSid, // allow both connection and binding to ports
-        /**
+        /*
          * binding to ports is allowed even though it might present a risk because it is useful for ipc, and additionally
          * blocking binding to ports presents no security benefit because reverse shells-type connections still work,
          * additionally it wouldn't help prevent c2s from causing problems on machines because c2s would not be able to
@@ -33,8 +36,7 @@ WELL_KNOWN_SID_TYPE app_capabilities[] = {
          */
         WinCapabilityPrivateNetworkClientServerSid, // this is needed when the user is connected to a VPN which
                                                     // routes traffic through a local ip address.
-        // TODO: investigate removing this capability conditionally
-
+                                                    // it may also be needed in order to connect to local minecraft servers
 };
 WCHAR container_desc[] = L"Sandboxing Minecraft";
 
@@ -63,14 +65,14 @@ WCHAR* createContainerName(WCHAR *base_container_name, LPWSTR *rwMounts, LPWSTR 
     uint64_t hash = 0xcbf29ce484222325;
     for (int i = 0; i < rwMountsCount; ++i) {
         size_t strlen = wcslen(rwMounts[i]);
-        for (size_t j = 0; j < strlen; j++) {
+        for (size_t j = 0; j < strlen; ++j) {
             hash *= 0x100000001b3;
             hash ^= rwMounts[i][j];
         }
     }
     for (int i = 0; i < roMountsCount; ++i) {
         size_t strlen = wcslen(roMounts[i]);
-        for (size_t j = 0; j < strlen; j++) {
+        for (size_t j = 0; j < strlen; ++j) {
             hash *= 0x100000001b3;
             hash ^= roMounts[i][j];
         }
@@ -126,11 +128,11 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
         }
 
         for (int i = 0; i < rwMountsCount; i++) {
-            GrantNamedObjectAccess(sid, rwMounts[i], SE_FILE_OBJECT, FILE_ALL_ACCESS | FILE_LIST_DIRECTORY);
+            GrantNamedObjectAccess(sid, rwMounts[i], SE_FILE_OBJECT, STANDARD_RIGHTS_ALL | FILE_ALL_ACCESS | FILE_LIST_DIRECTORY);
         }
 
         for (int i = 0; i < roMountsCount; i++) {
-            GrantNamedObjectAccess(sid, roMounts[i], SE_FILE_OBJECT, GENERIC_READ);
+            GrantNamedObjectAccess(sid, roMounts[i], SE_FILE_OBJECT, GENERIC_READ | FILE_EXECUTE);
         }
 
         InitializeProcThreadAttributeList(nullptr, 1, 0, &attribute_size);
@@ -238,7 +240,7 @@ BOOL GrantNamedObjectAccess(PSID appcontainer_sid, LPWSTR object_name, SE_OBJECT
     BOOL success = FALSE;
 
     do {
-        explicit_access.grfAccessMode = GRANT_ACCESS;
+        explicit_access.grfAccessMode = SET_ACCESS;
         explicit_access.grfAccessPermissions = access_mask;
         explicit_access.grfInheritance = OBJECT_INHERIT_ACE | CONTAINER_INHERIT_ACE;
 
@@ -272,9 +274,6 @@ BOOL GrantNamedObjectAccess(PSID appcontainer_sid, LPWSTR object_name, SE_OBJECT
         success = TRUE;
 
     } while (FALSE);
-
-    if (original_acl)
-        LocalFree(original_acl);
 
     if (new_acl)
         LocalFree(new_acl);

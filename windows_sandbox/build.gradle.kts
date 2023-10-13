@@ -47,6 +47,7 @@ project.afterEvaluate {
             compilerArgs.add("/wd4068")
             compilerArgs.add("/std:c++17")
             compilerArgs.add("/EHa")
+            compilerArgs.add("/fsanitize=address")
         }
     }
     val linkRelease: AbstractLinkTask by tasks
