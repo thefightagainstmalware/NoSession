@@ -7,7 +7,7 @@ plugins {
     kotlin("jvm")
 }
 
-version = "1.2.0"
+version = "1.2.1"
 group = "gq.malwarefight.nosession"
 
 val kotlinVersion = "1.8.21"
