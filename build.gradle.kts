@@ -7,7 +7,7 @@ plugins {
     kotlin("jvm")
 }
 
-version = "1.2.0"
+version = "1.3.0"
 group = "gq.malwarefight.nosession"
 
 val kotlinVersion = "1.8.21"
@@ -46,7 +46,7 @@ dependencies {
         shade(project(":nosession_libc", "lib"))
     }
     if (Os.isFamily(Os.FAMILY_WINDOWS)) {
-        shade(project(":windows_sandbox", "lib"))
+        shade(project(":windows_sandbox"))
     }
     compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")

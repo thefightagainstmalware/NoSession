@@ -8,6 +8,7 @@
 #include <cassert>
 #include "ContainerCreate.h"
 #include <algorithm>
+#include <sddl.h>
 
 #ifndef DEBUG
 inline
@@ -24,9 +25,9 @@ void debug(...) {
 
 #pragma comment(lib, "userenv.lib")
 #pragma comment(lib, "Advapi32.lib")
+#pragma comment(lib, "User32.lib")
 
 WELL_KNOWN_SID_TYPE app_capabilities[] = {
-        WinCapabilityInternetClientSid,
         WinCapabilityInternetClientServerSid, // allow both connection and binding to ports
         /*
          * binding to ports is allowed even though it might present a risk because it is useful for ipc, and additionally
@@ -99,6 +100,7 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
     SIZE_T attribute_size = 0;
     STARTUPINFOEXW startup_info;
     PROCESS_INFORMATION process_info;
+    LPWSTR string_sid = nullptr;
     ZeroMemory(&startup_info, sizeof(startup_info));
     ZeroMemory(&process_info, sizeof(process_info));
     startup_info.StartupInfo.cb = sizeof(STARTUPINFOEXW);
@@ -128,7 +130,7 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
         }
 
         for (int i = 0; i < rwMountsCount; i++) {
-            GrantNamedObjectAccess(sid, rwMounts[i], SE_FILE_OBJECT, STANDARD_RIGHTS_ALL | FILE_ALL_ACCESS | FILE_LIST_DIRECTORY);
+            GrantNamedObjectAccess(sid, rwMounts[i], SE_FILE_OBJECT, STANDARD_RIGHTS_ALL | FILE_ALL_ACCESS | FILE_LIST_DIRECTORY | FILE_EXECUTE);
         }
 
         for (int i = 0; i < roMountsCount; i++) {
@@ -196,7 +198,7 @@ BOOL IsInAppContainer() {
 BOOL SetSecurityCapabilities(PSID container_sid, SECURITY_CAPABILITIES *capabilities, PDWORD num_capabilities) {
 
     DWORD sid_size = SECURITY_MAX_SID_SIZE;
-    DWORD num_capabilities_ = sizeof(app_capabilities) / sizeof(DWORD);
+    DWORD num_capabilities_ = sizeof(app_capabilities) / sizeof(WELL_KNOWN_SID_TYPE);
     SID_AND_ATTRIBUTES *attributes;
     BOOL success = TRUE;
 

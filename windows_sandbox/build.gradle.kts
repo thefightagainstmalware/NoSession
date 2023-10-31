@@ -39,12 +39,12 @@ project.afterEvaluate {
             compilerArgs.add("/I" + javaHomeIncludeDir.get().resolve("win32").absolutePath)
             compilerArgs.add("/Wall")
             compilerArgs.add("/WX")
-            compilerArgs.add("/wd4668") // 4668: macro is not defined
-            compilerArgs.add("/wd4820") // 4820: 'bytes' bytes padding added after construct 'member_name'
+            compilerArgs.add("/wd4068")
             compilerArgs.add("/wd4710") // 4710: function not inlined
             compilerArgs.add("/wd4711") // 4711: function is inlined. there is no winning with msvc
+            compilerArgs.add("/wd4668") // 4668: macro is not defined
+            compilerArgs.add("/wd4820") // 4820: 'bytes' bytes padding added after construct 'member_name'
             compilerArgs.add("/wd5045") // 5045: spectre mitigation is enabled
-            compilerArgs.add("/wd4068")
             compilerArgs.add("/std:c++17")
             compilerArgs.add("/EHa")
             compilerArgs.add("/fsanitize=address")
