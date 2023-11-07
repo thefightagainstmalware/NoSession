@@ -100,7 +100,6 @@ BOOL RunExecutableInContainer(LPWSTR command_line, LPWSTR *rwMounts, LPWSTR *roM
     SIZE_T attribute_size = 0;
     STARTUPINFOEXW startup_info;
     PROCESS_INFORMATION process_info;
-    LPWSTR string_sid = nullptr;
     ZeroMemory(&startup_info, sizeof(startup_info));
     ZeroMemory(&process_info, sizeof(process_info));
     startup_info.StartupInfo.cb = sizeof(STARTUPINFOEXW);
