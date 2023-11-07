@@ -71,6 +71,7 @@ sourceSets.main {
 
 tasks.withType(Jar::class) {
     from(shade.map { if(it.isDirectory) it else zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes(
             "ForceLoadAsMod" to true,
