@@ -12,12 +12,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
-    permissions:
-      id-token: write
-      contents: read
-      actions: read
+
     runs-on: ubuntu-latest
 
     steps:
@@ -51,12 +51,7 @@ jobs:
       run: gpg --detach-sign -a ./build/libs/*.jar
       env:
         GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}
-
-    - name: Generate provenance information
-      uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@v1.9.0
-      with:
-        artifact-list: ./build/libs/*.jar
-
+    
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.1.1
       with:
