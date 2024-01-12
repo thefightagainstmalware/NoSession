@@ -1,0 +1,16 @@
+name: Build with SLSA provenance
+on:
+  push:
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
+    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@v1.9.0
+    with:
+      artifact-list: ./build/libs/*.jar
