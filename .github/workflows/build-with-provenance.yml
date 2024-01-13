@@ -15,3 +15,5 @@ jobs:
     with:
       artifact-list: ./build/libs/NoSession-GRADLE_VERSION.jar
       jdk-version: 8
+      directory: .
+
