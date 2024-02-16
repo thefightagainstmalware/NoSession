@@ -17,8 +17,11 @@ permissions:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
@@ -30,6 +33,7 @@ jobs:
 
     - name: Add the release signing secret key
       if: github.ref_name == 'main'
+
       run: echo -n "$GPG_SIGNING_KEY" | gpg --import
       env:
         GPG_SIGNING_KEY: ${{ secrets.GPG_SIGNING_KEY }}

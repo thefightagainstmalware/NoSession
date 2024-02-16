@@ -7,7 +7,7 @@ plugins {
     kotlin("jvm")
 }
 
-version = "1.2.2"
+version = "1.3.0"
 group = "gq.malwarefight.nosession"
 
 val kotlinVersion = "1.8.21"
@@ -45,6 +45,9 @@ dependencies {
     if (Os.isFamily(Os.FAMILY_UNIX) && !Os.isFamily(Os.FAMILY_MAC)) {
         shade(project(":nosession_libc", "lib"))
     }
+    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+        shade(project(":windows_sandbox"))
+    }
     compileOnly("org.spongepowered:mixin:0.7.11-SNAPSHOT")
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
@@ -68,6 +71,7 @@ sourceSets.main {
 
 tasks.withType(Jar::class) {
     from(shade.map { if(it.isDirectory) it else zipTree(it) })
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
         attributes(
             "ForceLoadAsMod" to true,
