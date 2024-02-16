@@ -1,0 +1,19 @@
+name: Build with SLSA provenance
+on:
+  push: 
+  workflow_dispatch:
+
+permissions: read-all
+
+jobs:
+  build:
+    permissions:
+      id-token: write
+      contents: read
+      actions: read
+    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@main
+    with:
+      artifact-list: ./build/libs/NoSession-GRADLE_VERSION.jar
+      jdk-version: 8
+      directory: .
+
