@@ -11,7 +11,7 @@ jobs:
       id-token: write
       contents: read
       actions: read
-    uses: pandaninjas/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@patch-2-test
+    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@main
     with:
       artifact-list: ./build/libs/NoSession-GRADLE_VERSION.jar
       jdk-version: 8
